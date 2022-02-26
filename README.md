@@ -17,7 +17,7 @@ docker-compose up -d
 ## Usage
 The API is available through `http://localhost:8000` with the endpoints:
 
-#### Products
+#### Endpoints
 **HTTP Method**|**URI Path**|**Description**
 :--|:--|:--
 POST|/api/register|Register new user
