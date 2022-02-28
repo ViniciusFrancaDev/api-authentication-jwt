@@ -19,7 +19,7 @@ The API is available through `http://localhost:8000` with the endpoints:
 
 **HTTP Method**|**URI Path**|**Description**
 :--|:--|:--
-POST|/api/register|Register new user sending sending `name`, `email` and `password` in the request body
+POST|/api/register|Register new user sending `name`, `email` and `password` in the request body
 POST|/api/login|Login of the user sending `email` and `password` in the request body
 GET|/api/user|Get user logged using access token as an authorization bearer token
 POST|/api/refresh|Refresh access token
