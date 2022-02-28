@@ -2,20 +2,20 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
 
-def create_authentication_token(user_id, secret='access_secret', duration_in_minutes=60):
+def create_authentication_token(user_id, secret='access_secret', duration_in_seconds=60):
     """Generates a JWT token
     :param user_id: id of the user that will have the generated token
     :type user_id: int
     :param secret: secret used to generate the token during encode process
     :type secret: str
-    :param duration_in_minutes: time in minutes that the generated token will be valid
-    :type duration_in_minutes: int
+    :param duration_in_seconds: time in seconds that the generated token will be valid
+    :type duration_in_seconds: int
     :return: encoded JWT
     :rtype: str
     """
     return jwt.encode({
         'user_id': user_id,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=duration_in_minutes),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=duration_in_seconds),
         'iat': datetime.datetime.utcnow()
     }, secret, algorithm='HS256')
 
