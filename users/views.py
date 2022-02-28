@@ -28,7 +28,7 @@ class LoginView(APIView):
             raise AuthenticationFailed('Invalid credentials')
 
         access_token = create_authentication_token(user.id)
-        refresh_token = create_authentication_token(user.id, 'refresh_secret', 180)
+        refresh_token = create_authentication_token(user.id, 'refresh_secret', 3600)
 
         response = Response()
         response.set_cookie(key='refreshToken', value=refresh_token, httponly=True)
@@ -55,9 +55,9 @@ class UserView(APIView):
 
 
 class LogoutView(APIView):
-    def post(self, request):
+    def post(self, _):
         response = Response()
-        response.delete_cookie('jwt')
+        response.delete_cookie('refreshToken')
         response.data = {
             'message': 'success'
         }
