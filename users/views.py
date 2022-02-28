@@ -63,3 +63,15 @@ class LogoutView(APIView):
         }
 
         return response
+
+
+class RefreshView(APIView):
+    def post(self, request):
+        refresh_token = request.COOKIES.get('refreshToken')
+        user_id = decode_authentication_token(refresh_token, 'refresh_secret')
+
+        access_token = create_authentication_token(user_id)
+
+        return Response({
+            'access_token': access_token
+        })
