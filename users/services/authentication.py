@@ -2,7 +2,9 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
 
-def create_authentication_token(user_id, secret='access_secret', duration_in_seconds=60):
+def create_authentication_token(
+    user_id, secret="access_secret", duration_in_seconds=60
+):
     """Generates a JWT token
     :param user_id: id of the user that will have the generated token
     :type user_id: int
@@ -13,14 +15,19 @@ def create_authentication_token(user_id, secret='access_secret', duration_in_sec
     :return: encoded JWT
     :rtype: str
     """
-    return jwt.encode({
-        'user_id': user_id,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=duration_in_seconds),
-        'iat': datetime.datetime.utcnow()
-    }, secret, algorithm='HS256')
+    return jwt.encode(
+        {
+            "user_id": user_id,
+            "exp": datetime.datetime.utcnow()
+            + datetime.timedelta(seconds=duration_in_seconds),
+            "iat": datetime.datetime.utcnow(),
+        },
+        secret,
+        algorithm="HS256",
+    )
 
 
-def decode_authentication_token(access_token, secret='access_secret'):
+def decode_authentication_token(access_token, secret="access_secret"):
     """Decodes a JWT token
     :param access_token: authorization access token
     :type access_token: str
@@ -30,8 +37,8 @@ def decode_authentication_token(access_token, secret='access_secret'):
     :rtype: int
     """
     try:
-        payload = jwt.decode(access_token, secret, algorithms='HS256')
+        payload = jwt.decode(access_token, secret, algorithms="HS256")
 
-        return payload['user_id']
+        return payload["user_id"]
     except:
-        raise AuthenticationFailed('Unauthenticated')
+        raise AuthenticationFailed("Unauthenticated")
